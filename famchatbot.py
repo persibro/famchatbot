@@ -17,6 +17,7 @@ path.insert(0, "extensions")
 ### Start extensions includes here ###
 from eightball import eightball
 from cannedresponses import cannedresponses
+from rekt import rekt
 
 try:
     bottoken = argv[1]
@@ -59,6 +60,12 @@ def inc_message(msg):
 
         bot.sendDocument(chat_id,
                          open('static/goteem.mp4', 'rb'))
+
+    elif parsed_command == "rekt":
+
+        bot.sendMessage(chat_id,
+                        rekt(),
+                        "Markdown")
 
     else:
         bot.sendMessage(chat_id,
