@@ -1,8 +1,9 @@
+# -*- coding: utf-8 -*-
 """
 Bot commands list:
 blackppldice - Clicky clack
 8ball - Roll that Magic 8-Ball
-goteem - GOT EEM!!
+goteem - GOT EEM! 👌🏿
 """
 
 import telepot
