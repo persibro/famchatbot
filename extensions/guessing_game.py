@@ -62,7 +62,7 @@ class GuessTheNumber(threading.Thread):
 
         except:
             self._bot.sendMessage(self.chat_id,
-                                  "invalid input bruh")
+                                  "guess right bruh")
 
     def timer_refresh(self):
         self.timer = 30
