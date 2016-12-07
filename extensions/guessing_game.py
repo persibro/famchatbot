@@ -40,10 +40,10 @@ class GuessTheNumber(threading.Thread):
         try:
             guess = int(guess)
             if guess == self.random_number:
-                self.timer = 0
                 self._bot.sendMessage(self.chat_id,
                                       "Correct!")
                 self.guessed_right = True
+                self.timer = 0
 
             elif guess > self.random_number:
                 if self.turns < 10:

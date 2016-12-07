@@ -38,7 +38,6 @@ def inc_message(msg):
 
     # initialize dict for chat_id if there isn't one already
     if chat_id_key not in current_threads.keys():
-        print "created!"
         current_threads[str(chat_id)] = {}
 
     # See if a command is sent
