@@ -4,6 +4,7 @@ Bot commands list:
 blackppldice - Clicky clack
 8ball - Roll that Magic 8-Ball
 goteem - GOT EEM! 👌🏿
+guessthenumber - Start a round of number guessing
 """
 
 import telepot
@@ -78,8 +79,8 @@ def inc_message(msg):
 
         try:
             if current_threads[chat_id_key]["guessinggame"].isAlive():
-                self._bot.sendMessage(self.chat_id,
-                                      "Finish the current game first!" % guess)
+                bot.sendMessage(chat_id,
+                                "Finish the current game first!")
             else:
                 _newguessgame = guessing_game.GuessTheNumber("", chat_id, bot)
                 current_threads[chat_id_key]["guessinggame"] = _newguessgame
