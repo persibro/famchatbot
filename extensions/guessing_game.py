@@ -46,12 +46,12 @@ class GuessTheNumber(threading.Thread):
                 self.timer = 0
 
             elif guess > self.random_number:
-                if self.turns < 10:
+                if self.turns < 9:
                     self._bot.sendMessage(self.chat_id,
                                           "Smaller than %d" % guess)
 
             elif guess < self.random_number:
-                if self.turns < 10:
+                if self.turns < 9:
                     self._bot.sendMessage(self.chat_id,
                                           "Larger than %d" % guess)
 
