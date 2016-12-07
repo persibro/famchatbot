@@ -58,14 +58,13 @@ def inc_message(msg):
 
     elif parsed_command == "goteem":
 
-        bot.sendDocument(chat_id,
-                         open('static/goteem.mp4', 'rb'))
+        bot.sendVideo(chat_id,
+                      open('static/goteem.mp4', 'rb'))
 
     elif parsed_command == "rekt":
 
         bot.sendMessage(chat_id,
-                        rekt(),
-                        "Markdown")
+                        rekt())
 
     else:
         bot.sendMessage(chat_id,
