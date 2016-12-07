@@ -18,6 +18,7 @@ path.insert(0, "extensions")
 from eightball import eightball
 from cannedresponses import cannedresponses
 from rekt import rekt
+import guessing_game
 
 try:
     bottoken = argv[1]
@@ -26,11 +27,18 @@ except IndexError:
     exit()
 
 run_counter = 0
+current_threads = {}
 
 
 def inc_message(msg):
     parsed_command = ""
     chat_id = msg["chat"]["id"]
+    chat_id_key = str(chat_id)
+
+    # initialize dict for chat_id if there isn't one already
+    if chat_id_key not in current_threads.keys():
+        print "created!"
+        current_threads[str(chat_id)] = {}
 
     # See if a command is sent
     if msg["text"][0] == "/":
@@ -65,6 +73,28 @@ def inc_message(msg):
 
         bot.sendMessage(chat_id,
                         rekt())
+
+    elif parsed_command == "guessthenumber":
+
+        try:
+            if current_threads[chat_id_key]["guessinggame"].isAlive():
+                self._bot.sendMessage(self.chat_id,
+                                      "Finish the current game first!" % guess)
+            else:
+                _newguessgame = guessing_game.GuessTheNumber("", chat_id, bot)
+                current_threads[chat_id_key]["guessinggame"] = _newguessgame
+                _newguessgame.start()
+        except KeyError:
+            _newguessgame = guessing_game.GuessTheNumber("", chat_id, bot)
+            current_threads[chat_id_key]["guessinggame"] = _newguessgame
+            _newguessgame.start()
+
+    elif parsed_command == "guess" and current_threads[chat_id_key]["guessinggame"].isAlive():
+        player_guess = arg_extract(msg["text"])
+        current_threads[chat_id_key]["guessinggame"].guess(player_guess)
+
+    elif parsed_command == "print":
+        print current_threads
 
     else:
         bot.sendMessage(chat_id,
