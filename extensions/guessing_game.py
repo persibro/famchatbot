@@ -55,7 +55,9 @@ class GuessTheNumber(threading.Thread):
                     self._bot.sendMessage(self.chat_id,
                                           "Larger than %d" % guess)
 
-            self.timer_refresh()
+            if not self.guessed_right:
+                self.timer_refresh()
+
             self.turns += 1
 
         except:
