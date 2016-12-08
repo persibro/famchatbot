@@ -4,7 +4,12 @@ CeeLo game
 
 Need to add:
 ============================
-- Handling tie games
+[ ] Handling tie games
+
+Found bugs:
+============================
+[x] Scores don't compile correctly when a user times out
+    - Most likely caused by the absence of list of rolls
 
 """
 
@@ -23,7 +28,7 @@ class DiceGame(threading.Thread):
         self.players = {}
         self._bot = _bot
         self.roll_timer = 30.0
-        self.lobby_timer = 30.0
+        self.lobby_timer = 60.0
         self.current_roller = ""
         self.chat_id = chat_id
 
@@ -132,7 +137,10 @@ class DiceGame(threading.Thread):
             ordered_list = sorted(self.players.values(), key=itemgetter(2), reverse=True)
 
             for player in ordered_list:
-                return_string += "%s rolled %s, %s, %s\n" % (player[0], player[1][0], player[1][1], player[1][2])
+                try:
+                    return_string += "%s rolled %s, %s, %s\n" % (player[0], player[1][0], player[1][1], player[1][2])
+                except:
+                    return_string += "%s missed their turn!" % (player[0])
 
         else:
             return_string += "%s rolled %s, %s, %s\n" % (self.players.values()[0][0], self.players.values()[0][1][0], self.players.values()[0][1][1], self.players.values()[0][1][2])

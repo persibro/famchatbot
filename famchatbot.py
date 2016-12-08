@@ -4,7 +4,7 @@ Bot commands list:
 blackppldice - Clicky clack
 8ball - Roll that Magic 8-Ball
 goteem - GOT EEM! 👌🏿
-rekt - Someone got REKTD!
+rekt - Someone got REKTD! (takes optional <int> argument)
 guessthenumber - Start a round of number guessing
 roundofdice - Start a round of clicky clack
 """
