@@ -82,7 +82,7 @@ rekts = [
 def rekt(number_of_rekts):
     compiled_str = ""
 
-    compiled_str = rekts.pop[0]
+    compiled_str = rekts.pop(0)
 
     for rekt in xrange(number_of_rekts if number_of_rekts <= len(rekts) else rekts):
         compiled_str += rekt + "\n"
