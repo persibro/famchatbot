@@ -73,8 +73,13 @@ def inc_message(msg):
 
     elif parsed_command == "rekt":
 
+        try:
+            argument = int(arg_extract(msg["text"]))
+        except:
+            argument = 4
+
         bot.sendMessage(chat_id,
-                        rekt())
+                        rekt(argument))
 
     # Commands for number guessing game #
 
