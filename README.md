@@ -2,7 +2,7 @@
 Usage: python2.7 famchatbot.py \<bottoken>
 
 ## Current commands:
--/blackppldice - Clicky clack
+- /blackppldice - Clicky clack
 -/diceroll - Roll dices
 --/diceroll <dices> - Roll specified amount of dice types (i.e. 2d6)
 -/8ball - Roll that Magic 8-Ball (takes optional <question> argument)
