@@ -1,3 +1,13 @@
+"""
+
+CeeLo game
+
+Need to add:
+============================
+- Handling tie games
+
+"""
+
 import threading
 from time import sleep
 from random import shuffle, randint
@@ -32,6 +42,11 @@ class DiceGame(threading.Thread):
 
         self._bot.sendMessage(self.chat_id,
                               "Game closed! Time to roll!")
+
+        if len(self.players.keys()) == 0:
+            self._bot.sendMessage(self.chat_id,
+                                  "rip no one joined the game")
+            return
 
         # Roll session
         for player in playerlist:
@@ -106,7 +121,7 @@ class DiceGame(threading.Thread):
 
         else:
             self._bot.sendMessage(self.chat_id,
-                                  "He, %s, it's not your turn!" % msg_from["first_name"])
+                                  "Hey, %s, it's not your turn!" % msg_from["first_name"])
 
     def winner_and_scores(self):
         # self.players[user_id] = [msg_from["first_name"], [], 0]
