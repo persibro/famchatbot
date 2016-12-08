@@ -5,6 +5,7 @@ blackppldice - Clicky clack
 8ball - Roll that Magic 8-Ball
 goteem - GOT EEM! 👌🏿
 guessthenumber - Start a round of number guessing
+roundofdice - Start a round of clicky clack
 """
 
 import telepot
@@ -20,6 +21,7 @@ from eightball import eightball
 from cannedresponses import cannedresponses
 from rekt import rekt
 import guessing_game
+import dicegame
 
 try:
     bottoken = argv[1]
@@ -74,6 +76,8 @@ def inc_message(msg):
         bot.sendMessage(chat_id,
                         rekt())
 
+    # Commands for number guessing game #
+
     elif parsed_command == "guessthenumber":
 
         try:
@@ -93,8 +97,30 @@ def inc_message(msg):
         player_guess = arg_extract(msg["text"])
         current_threads[chat_id_key]["guessinggame"].guess(player_guess)
 
-    elif parsed_command == "print":
-        print current_threads
+    # Commands for dice game #
+
+    elif parsed_command == "roundofdice":
+        try:
+            if current_threads[chat_id_key]["dicegame"].isAlive():
+                bot.sendMessage(chat_id,
+                                "Finish the current game first!")
+            else:
+                _newdicegame = dicegame.DiceGame(chat_id, bot)
+                current_threads[chat_id_key]["dicegame"] = _newdicegame
+                _newdicegame.start()
+        except KeyError:
+            _newdicegame = dicegame.DiceGame(chat_id, bot)
+            current_threads[chat_id_key]["dicegame"] = _newdicegame
+            _newdicegame.start()
+
+    elif parsed_command == "joindicegame" and current_threads[chat_id_key]["dicegame"].isAlive():
+        current_threads[chat_id_key]["dicegame"].join(msg["from"])
+
+    elif parsed_command == "rolldice" and current_threads[chat_id_key]["dicegame"].isAlive():
+        current_threads[chat_id_key]["dicegame"].roll(msg["from"])
+
+    elif parsed_command == "start" and current_threads[chat_id_key]["dicegame"].isAlive():
+        current_threads[chat_id_key]["dicegame"].start_game()
 
     else:
         bot.sendMessage(chat_id,
