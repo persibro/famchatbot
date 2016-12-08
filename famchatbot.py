@@ -2,6 +2,7 @@
 """
 Bot commands list:
 blackppldice - Clicky clack
+diceroll - Roll dices
 8ball - Roll that Magic 8-Ball
 goteem - GOT EEM! 👌🏿
 rekt - Someone got REKTD! (takes optional <int> argument)
@@ -11,7 +12,6 @@ roundofdice - Start a round of clicky clack
 
 import telepot
 from pprint import pprint
-from random import randint
 from sys import argv, stdout, path
 from os import system
 
@@ -23,6 +23,7 @@ from cannedresponses import cannedresponses
 from rekt import rekt
 import guessing_game
 import dicegame
+from diceroll import diceroll
 
 try:
     bottoken = argv[1]
@@ -58,7 +59,19 @@ def inc_message(msg):
     if parsed_command == "blackppldice":
 
         bot.sendMessage(chat_id,
-                        "*%s* rolled %s, %s, %s" % (msg["from"]["first_name"], randint(1, 6), randint(1, 6), randint(1, 6)),
+                        "*%s* rolled %s" % (msg["from"]["first_name"], diceroll("3d6", False)),
+                        "Markdown")
+
+    elif parsed_command == "diceroll" and arg_extract(msg["text"]) == "":
+
+        bot.sendMessage(chat_id,
+                        "*%s* rolled %s" % (msg["from"]["first_name"], diceroll("d6", False)),
+                        "Markdown")
+
+    elif parsed_command == "diceroll" and arg_extract(msg["text"]):
+
+        bot.sendMessage(chat_id,
+                        "*%s* rolled %s" % (msg["from"]["first_name"], diceroll(arg_extract(msg["text"]), True)),
                         "Markdown")
 
     elif parsed_command == "8ball":
