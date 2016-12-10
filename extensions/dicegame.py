@@ -48,9 +48,9 @@ class DiceGame(threading.Thread):
         self._bot.sendMessage(self.chat_id,
                               "Game closed! Time to roll!")
 
-        if len(self.players.keys()) == 0:
+        if len(self.players.keys()) >= 1:
             self._bot.sendMessage(self.chat_id,
-                                  "rip no one joined the game")
+                                  "rip not enough players")
             return
 
         # Roll session
@@ -68,7 +68,7 @@ class DiceGame(threading.Thread):
 
         # Print scores and announce winner
         self._bot.sendMessage(self.chat_id,
-                              "*Scores:*\n%s" % self.winner_and_scores(),
+                              "*Ranking:*\n%s" % self.winner_and_scores(),
                               "Markdown")
 
     def join(self, msg_from):
