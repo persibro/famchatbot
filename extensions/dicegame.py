@@ -45,13 +45,13 @@ class DiceGame(threading.Thread):
         playerlist = self.players.keys()
         shuffle(playerlist)
 
-        self._bot.sendMessage(self.chat_id,
-                              "Game closed! Time to roll!")
-
         if len(self.players.keys()) >= 1:
             self._bot.sendMessage(self.chat_id,
                                   "rip not enough players")
             return
+        else:
+            self._bot.sendMessage(self.chat_id,
+                                  "Game closed! Time to roll!")
 
         # Roll session
         for player in playerlist:
