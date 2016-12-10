@@ -45,7 +45,7 @@ class DiceGame(threading.Thread):
         playerlist = self.players.keys()
         shuffle(playerlist)
 
-        if len(self.players.keys()) >= 1:
+        if len(self.players.keys()) <= 1:
             self._bot.sendMessage(self.chat_id,
                                   "rip not enough players")
             return
