@@ -35,7 +35,8 @@ class DiceGame(threading.Thread):
     def run(self):
 
         self._bot.sendMessage(self.chat_id,
-                              "Players have %d seconds to join the game! /joindicegame" % self.lobby_timer)
+                              "Players have %d seconds to join the game! /joindicegame" % self.lobby_timer,
+                              disable_notification=True)
 
         # Wait in lobby for players
         while self.lobby_timer >= 0:
@@ -47,29 +48,34 @@ class DiceGame(threading.Thread):
 
         if len(self.players.keys()) <= 1:
             self._bot.sendMessage(self.chat_id,
-                                  "rip not enough players")
+                                  "rip not enough players",
+                                  disable_notification=True)
             return
         else:
             self._bot.sendMessage(self.chat_id,
-                                  "Game closed! Time to roll!")
+                                  "Game closed! Time to roll!",
+                                  disable_notification=True)
 
         # Roll session
         for player in playerlist:
             self.roll_timer = 30.0
             self.current_roller = str(player)
             self._bot.sendMessage(self.chat_id,
-                                  "%s is up! /rolldice" % self.players[player][0])
+                                  "%s is up! /rolldice" % self.players[player][0],
+                                  disable_notification=True)
             while self.roll_timer >= 0:
                 self.roll_timer -= .5
                 sleep(.5)
 
         self._bot.sendMessage(self.chat_id,
-                              "Rolls completed!")
+                              "Rolls completed!",
+                              disable_notification=True)
 
         # Print scores and announce winner
         self._bot.sendMessage(self.chat_id,
                               "*Ranking:*\n%s" % self.winner_and_scores(),
-                              "Markdown")
+                              "Markdown",
+                              disable_notification=True)
 
     def join(self, msg_from):
 
@@ -80,10 +86,12 @@ class DiceGame(threading.Thread):
             if user_id not in self.players.iterkeys():
                 self.players[user_id] = [msg_from["first_name"], [], 0]
                 self._bot.sendMessage(self.chat_id,
-                                      "%s has joined the game!" % msg_from["first_name"])
+                                      "%s has joined the game!" % msg_from["first_name"],
+                                      disable_notification=True)
             else:
                 self._bot.sendMessage(self.chat_id,
-                                      "%s already added!" % msg_from["first_name"])
+                                      "%s already added!" % msg_from["first_name"],
+                                      disable_notification=True)
 
     def start_game(self):
         self.lobby_timer = 0
@@ -99,7 +107,8 @@ class DiceGame(threading.Thread):
 
             self._bot.sendMessage(self.chat_id,
                                   "*%s* rolled %s, %s, %s" % (msg_from["first_name"], rolls[0], rolls[1], rolls[2]),
-                                  "Markdown")
+                                  "Markdown",
+                                  disable_notification=True)
 
             self.roll_timer = 30
             counted = Counter(rolls)
@@ -126,7 +135,8 @@ class DiceGame(threading.Thread):
 
         else:
             self._bot.sendMessage(self.chat_id,
-                                  "Hey, %s, it's not your turn!" % msg_from["first_name"])
+                                  "Hey, %s, it's not your turn!" % msg_from["first_name"],
+                                  disable_notification=True)
 
     def winner_and_scores(self):
         # self.players[user_id] = [msg_from["first_name"], [], 0]
