@@ -2,12 +2,9 @@
 from random import randint
 
 
-
-
 def rekt(number_of_rekts):
-    
+
     rekts = [
-        "☐ Not rekt",
         "☑️ Rekt",
         "☑️ Really Rekt",
         "☑️ Tyrannosaurus Rekt",
@@ -86,9 +83,12 @@ def rekt(number_of_rekts):
 
     compiled_str = ""
 
-    compiled_str = rekts.pop(0) + "\n"
+    if number_of_rekts > 0:
+        compiled_str = "☐ Not rekt" + "\n"
 
-    for x in xrange(number_of_rekts if number_of_rekts <= len(rekts) else rekts):
-        compiled_str += rekts.pop(randint(0, len(rekts) - 1)) + "\n"
+        for x in xrange(number_of_rekts if number_of_rekts <= len(rekts) else rekts):
+            compiled_str += rekts.pop(randint(0, len(rekts) - 1)) + "\n"
+    else:
+        compiled_str = "☑️ Not Rekt"
 
     return compiled_str
